@@ -1,0 +1,7 @@
+/*.env
+
+articles.txt
+
+/node_modules/*
+
+/app/*/*.js
