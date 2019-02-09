@@ -6,3 +6,4 @@ articles.txt
 
 /app/**/*.js
 
+.vscode
