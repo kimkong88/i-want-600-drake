@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { constant } from '../const/constant';
 
 export class NotificationService {
     private service = process.env.SERVICE || '';
@@ -16,7 +17,7 @@ export class NotificationService {
     private mailOptions = {
         from: this.from,
         to: this.to,
-        subject: '600 Drake Crawler Notification System',
+        subject: constant.subject,
         text: ''
     };
 
