@@ -29,7 +29,7 @@ export class PriceAnalyzerService {
         if (prev.length === curr.length) {
             prev.forEach((array: number[], i: number) => {
                 array.forEach((price: number, j: number) => {
-                    if (price !== curr[i][j]){
+                    if (price !== curr[i][j]) {
                         this.notificationService.sendMail({
                             text: 'A change in price has been detected!'
                         });

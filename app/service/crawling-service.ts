@@ -10,19 +10,19 @@ export class CrawlingService {
   };
 
   crawlWithUrl(url: string): number[][] {
-    request(url, (err, {}, html) => {
-        if (!err) {
-          const $ = cheerio.load(html);
+    request(url, (err, { }, html) => {
+      if (!err) {
+        const $ = cheerio.load(html);
 
-          this.selectors.forEach(selector => {
-              this.priceArray.push(this.crawl($, selector));
-              if (this.priceArray.length > this.selectors.length) {
-                this.selectors.forEach(() => {
-                  this.priceArray.shift();
-                });
-              }
-          });
-        }
+        this.selectors.forEach(selector => {
+          this.priceArray.push(this.crawl($, selector));
+          if (this.priceArray.length > this.selectors.length) {
+            this.selectors.forEach(() => {
+              this.priceArray.shift();
+            });
+          }
+        });
+      }
     });
     return this.priceArray;
   }
@@ -30,7 +30,7 @@ export class CrawlingService {
   private crawl($: CheerioStatic, selector: string): number[] {
     let priceArray: number[] = [];
 
-    $(selector).filter(({}: number, cheerioElement: CheerioElement): boolean => {
+    $(selector).filter(({ }: number, cheerioElement: CheerioElement): boolean => {
       const data = $(cheerioElement);
       const children = data.toArray();
       let stringArray: string[] = [];
@@ -50,7 +50,7 @@ export class CrawlingService {
     let price;
     if (string.includes('$')) {
       price = string;
-      price = parseInt(string.replace('$' , '').replace(',', ''));
+      price = parseInt(string.replace('$', '').replace(',', ''));
 
       priceArray.push(price);
     }
@@ -64,7 +64,7 @@ export class CrawlingService {
         elementData = elementData.trim();
 
         if (elementData) {
-            stringArray.push(elementData);
+          stringArray.push(elementData);
         }
       }
 
