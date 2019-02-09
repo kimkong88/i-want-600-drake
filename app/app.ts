@@ -14,7 +14,7 @@ export class Application {
   schedulerService: SchedulerService = new SchedulerService();
   priceAnalyzerService: PriceAnalyzerService = new PriceAnalyzerService(this.notificationService);
 
-  port = process.env.port || 8081;
+  port = process.env.PORT || 8081;
   cachedPrice: any = {
     previous: [],
     current: []

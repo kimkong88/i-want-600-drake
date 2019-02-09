@@ -1,10 +1,10 @@
 import nodemailer from 'nodemailer';
 
 export class NotificationService {
-    private service = process.env.service || '';
-    private pass = process.env.pass || '';
-    private from = process.env.from || '';
-    private to = process.env.to || '';
+    private service = process.env.SERVICE || '';
+    private pass = process.env.PASS || '';
+    private from = process.env.FROM || '';
+    private to = process.env.TO || '';
 
     private transport = {
         service: this.service,
