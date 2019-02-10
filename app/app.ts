@@ -30,16 +30,25 @@ export class Application {
 	}
 
 	run() {
+		let priceArray: number[] = [];
+
+		priceArray = this.recordPrice(priceArray);
 		this.schedulerService.runJob(constant.cronEveryTenMinutes, () => {
-			this.cachedPrice.previous = this.cachedPrice.current;
-			const priceArray = this.crawingService.crawlWithUrl(constant.url);
-
-			this.cachedPrice.current = priceArray;
-
-			this.crawingService.emptyPriceArray();
-
-			this.priceAnalyzerService.analyzePrice(this.cachedPrice);
+			priceArray = this.recordPrice(priceArray);
 		});
+	}
+
+	private recordPrice(priceArray: number[]): number[] {
+		this.cachedPrice.previous = this.cachedPrice.current;
+		priceArray = this.crawingService.crawlWithUrl(constant.url);
+
+		this.cachedPrice.current = priceArray;
+
+		this.crawingService.emptyPriceArray();
+
+		this.priceAnalyzerService.analyzePrice(this.cachedPrice);
+
+		return priceArray;
 	}
 }
 
