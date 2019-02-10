@@ -7,8 +7,11 @@ export class PriceAnalyzerService {
     }
 
     analyzePrice(cachedPrice: any) {
-        const prev = cachedPrice.previous;
-        let curr = cachedPrice.current;
+        let prev: [] = cachedPrice.previous;
+        let curr: [] = cachedPrice.current;
+
+        prev = prev.sort();
+        curr = curr.sort();
 
         if (curr === undefined) {
             curr = prev;
@@ -18,24 +21,26 @@ export class PriceAnalyzerService {
             this.notificationService.sendMail({
                 text: 'Something may have been de-listed!'
             });
+            return;
         }
 
         if (prev.length < curr.length) {
             this.notificationService.sendMail({
                 text: 'A new listing has been detected!'
             });
+            return;
         }
 
         if (prev.length === curr.length) {
-            prev.forEach((array: number[], i: number) => {
-                array.forEach((price: number, j: number) => {
-                    if (price !== curr[i][j]) {
-                        this.notificationService.sendMail({
-                            text: 'A change in price has been detected!'
-                        });
-                    }
-                });
+            prev.forEach((prevPrice: number, i: number) => {
+                if (prevPrice !== curr[i]) {
+                    this.notificationService.sendMail({
+                        text: 'Change in price detected!'
+                    });
+                    return;
+                }
             });
         }
+        return;
     }
 }

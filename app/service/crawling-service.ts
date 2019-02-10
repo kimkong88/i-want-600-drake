@@ -4,27 +4,27 @@ import { constant } from '../const/constant';
 
 export class CrawlingService {
 	selectors = constant.selectors;
-	priceArray: number[][] = [];
+	priceArray: number[] = [];
 
 	constructor() {
 	};
 
-	crawlWithUrl(url: string): number[][] {
+	crawlWithUrl(url: string): number[] {
 		request(url, (err, { }, html) => {
 			if (!err) {
 				const $ = cheerio.load(html);
 
 				this.selectors.forEach(selector => {
-					this.priceArray.push(this.crawl($, selector));
-					if (this.priceArray.length > this.selectors.length) {
-						this.selectors.forEach(() => {
-							this.priceArray.shift();
-						});
-					}
+					this.priceArray = this.crawl($, selector).concat(this.priceArray);
 				});
 			}
 		});
+
 		return this.priceArray;
+	}
+
+	emptyPriceArray() {
+		this.priceArray = [];
 	}
 
 	private crawl($: CheerioStatic, selector: string): number[] {
