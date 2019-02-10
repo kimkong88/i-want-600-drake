@@ -30,7 +30,7 @@ export class Application {
 	}
 
 	run() {
-		this.schedulerService.runJob(constant.cronEverySecond, () => {
+		this.schedulerService.runJob(constant.cronHourly, () => {
 			this.cachedPrice.previous = this.cachedPrice.current;
 			const priceArray = this.crawingService.crawlWithUrl(constant.url);
 
