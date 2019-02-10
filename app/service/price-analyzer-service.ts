@@ -1,9 +1,19 @@
 import { NotificationService } from './notification-service';
 
 export class PriceAnalyzerService {
-    notificationService: NotificationService;
+    private notificationService: NotificationService;
+    private _isFirstRun: boolean = false;
+
     constructor(notificationService: NotificationService) {
         this.notificationService = notificationService;
+    }
+
+    get isFirstRun() {
+        return this._isFirstRun;
+    }
+
+    set isFirstRun(isFirstRun: boolean) {
+        this._isFirstRun = isFirstRun;
     }
 
     analyzePrice(cachedPrice: any) {
@@ -12,6 +22,11 @@ export class PriceAnalyzerService {
 
         prev = prev.sort();
         curr = curr.sort();
+
+        if (!this.isFirstRun) {
+            this.isFirstRun = true;
+            return;
+        }
 
         if (curr === undefined) {
             curr = prev;
