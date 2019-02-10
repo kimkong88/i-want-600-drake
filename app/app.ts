@@ -9,10 +9,10 @@ import { PriceAnalyzerService } from './service/price-analyzer-service';
 export class Application {
 	app: express.Application;
 
-	notificationService: NotificationService = new NotificationService();
-	crawingService: CrawlingService = new CrawlingService();
-	schedulerService: SchedulerService = new SchedulerService();
-	priceAnalyzerService: PriceAnalyzerService = new PriceAnalyzerService(this.notificationService);
+	notificationService: NotificationService;
+	crawingService: CrawlingService;
+	schedulerService: SchedulerService;
+	priceAnalyzerService: PriceAnalyzerService;
 
 	port = process.env.PORT || 8081;
 	cachedPrice: any = {
